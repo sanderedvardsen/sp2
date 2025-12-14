@@ -15,7 +15,7 @@ En auksjonsplattform bygget med vanilla TypeScript og Vite.
 ## Teknologi
 
 - **TypeScript** - Type-sikker JavaScript
-- **Vite** - Rask utviklingsserver og byggeverktøy
+- **Vite** - Brukt som utviklingsserver og byggeverktøy
 - **Vanilla CSS** - Egendefinerte stiler med media queries
 - **Noroff Auction API v2** - Backend API
 
