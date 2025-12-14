@@ -186,11 +186,10 @@ export function showCreateListingModal(props: CreateListingModalProps): void {
     errorDiv.style.display = 'none';
 
     try {
-      // Parse media URLs
       const mediaUrls = mediaTextarea.value
         .split('\n')
         .map(url => url.trim())
-        .filter(url => url.length > 0)
+        .filter(url => url)
         .map(url => ({ url, alt: '' }));
 
       if (props.editListing) {
@@ -198,7 +197,7 @@ export function showCreateListingModal(props: CreateListingModalProps): void {
         await updateListing(auth.accessToken, props.editListing.id, {
           title: titleInput.value.trim(),
           description: descTextarea.value.trim(),
-          media: mediaUrls.length > 0 ? mediaUrls : undefined,
+          media: mediaUrls.length ? mediaUrls : undefined,
         });
       } else {
         // Create new listing
@@ -211,7 +210,7 @@ export function showCreateListingModal(props: CreateListingModalProps): void {
         await createListing(auth.accessToken, {
           title: titleInput.value.trim(),
           description: descTextarea.value.trim(),
-          media: mediaUrls.length > 0 ? mediaUrls : undefined,
+          media: mediaUrls.length ? mediaUrls : undefined,
           endsAt,
         });
       }

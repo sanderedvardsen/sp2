@@ -16,10 +16,13 @@ interface StoredAuth {
   };
 }
 
+// Lagrer autentiseringsdata i localStorage
 export function saveAuth(auth: StoredAuth): void {
   localStorage.setItem('auction_auth', JSON.stringify(auth));
 }
-// Henter autentiseringsdata fra localStorageexport function getAuth(): StoredAuth | null {
+
+// Henter autentiseringsdata fra localStorage
+export function getAuth(): StoredAuth | null {
   const stored = localStorage.getItem('auction_auth');
   if (!stored) return null;
   try {
@@ -29,6 +32,7 @@ export function saveAuth(auth: StoredAuth): void {
   }
 }
 
+// Fjerner autentiseringsdata (logger ut)
 export function clearAuth(): void {
   localStorage.removeItem('auction_auth');
 }

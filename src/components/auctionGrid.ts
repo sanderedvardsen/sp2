@@ -172,6 +172,7 @@ export function renderAuctionGrid(props: AuctionGridProps): HTMLElement {
   // Sorterer auksjoner basert på valgt sorteringsalternativ
   function sortAuctions(auctions: AuctionListing[], sortBy: SortOption): AuctionListing[] {
     const sorted = [...auctions];
+    const getBid = (a: AuctionListing) => getCurrentBid(a);
     
     switch (sortBy) {
       case 'newest':
@@ -179,9 +180,9 @@ export function renderAuctionGrid(props: AuctionGridProps): HTMLElement {
       case 'ending-soon':
         return sorted.sort((a, b) => new Date(a.endsAt).getTime() - new Date(b.endsAt).getTime());
       case 'price-desc':
-        return sorted.sort((a, b) => getCurrentBid(b) - getCurrentBid(a));
+        return sorted.sort((a, b) => getBid(b) - getBid(a));
       case 'price-asc':
-        return sorted.sort((a, b) => getCurrentBid(a) - getCurrentBid(b));
+        return sorted.sort((a, b) => getBid(a) - getBid(b));
       default:
         return sorted;
     }
@@ -212,11 +213,10 @@ export function renderAuctionGrid(props: AuctionGridProps): HTMLElement {
     let filteredAuctions = props.auctions;
     if (props.searchQuery) {
       const query = props.searchQuery.toLowerCase();
-      filteredAuctions = props.auctions.filter(auction =>
-        auction.title.toLowerCase().includes(query) ||
-        auction.description?.toLowerCase().includes(query) ||
-        auction.tags?.some(tag => tag.toLowerCase().includes(query))
-      );
+      filteredAuctions = props.auctions.filter(auction => {
+        const searchText = [auction.title, auction.description, ...(auction.tags || [])].join(' ').toLowerCase();
+        return searchText.includes(query);
+      });
     }
 
     if (filteredAuctions.length === 0) {

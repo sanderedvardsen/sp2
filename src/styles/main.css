@@ -966,12 +966,6 @@ textarea.form-input {
   margin-top: 0.25rem;
 }
 
-.form-help {
-  font-size: 0.75rem;
-  color: var(--color-neutral-600);
-  margin-top: 0.25rem;
-}
-
 .listing-form {
   padding: 1.5rem;
 }

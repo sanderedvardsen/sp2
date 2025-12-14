@@ -35,11 +35,6 @@ function formatTimeRemaining(endTime: string): string {
   return `${hours}h ${minutes}m`;
 }
 
-function getCurrentBid(auction: AuctionListing): number {
-  if (!auction.bids || auction.bids.length === 0) return 0;
-  return Math.max(...auction.bids.map(bid => bid.amount));
-}
-
 // Finner høyeste bud på en auksjon
 function getCurrentBid(auction: AuctionListing): number {
   if (!auction.bids || auction.bids.length === 0) return 0;
