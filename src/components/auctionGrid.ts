@@ -21,10 +21,12 @@ function formatTimeRemaining(endTime: string): string {
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-  if (hours > 24) {
+  if (hours >= 24) {
     const days = Math.floor(hours / 24);
     return `${days}d ${hours % 24}h`;
   }
+
+  if (hours === 0 && minutes === 0) return '<1m';
 
   return `${hours}h ${minutes}m`;
 }
@@ -45,7 +47,9 @@ function createAuctionCard(auction: AuctionListing, onClick: () => void): HTMLEl
   image.src = imageUrl;
   image.alt = auction.title;
   image.className = 'auction-card-image';
+  image.loading = 'lazy';
   image.onerror = () => {
+    image.onerror = null;
     image.src = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800';
   };
 
